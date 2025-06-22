@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marthoma Yuvajana Sakhyam</title>
+  <!-- ...existing code... -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+          }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #f3f3f3;
+            background: #181a1b;
+            overflow-x: hidden;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .bg-animation {
+            background: linear-gradient(120deg, #23272a 0%, #181a1b 100%);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            animation: gradientShift 15s ease-in-out infinite;
+        }
+
+        .glass,
+        .glass-dark {
+            background: #23272a;
+            border: 1px solid #23272a;
+            border-radius: 16px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+            backdrop-filter: none;
+        }
+
+        header {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            padding: 1rem 0;
+            background: #181a1b;
+            border-bottom: 1px solid #23272a;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            background: #181a1b;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.26);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: #f3f3f3;
+            text-decoration: none;
+            transition: color 0.2s, background 0.2s;
+            font-weight: 500;
+            position: relative;
+            padding: 10px 20px;
+            border-radius: 25px;
+        }
+
+        .nav-links a:hover {
+            background: #23272a;
+            color: #4fc3f7;
+        }
+
+        .hero {
+            height: 70vh;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: #f3f3f3;
+            background: #181a1b;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: none;
+            color: #fff;
+            -webkit-text-fill-color: unset;
+        }
+
+        .hero-content p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            color: #b0b0b0;
+            text-shadow: none;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: #f3f3f3;
+            color: #181a1b;
+            padding: 12px 32px;
+            text-decoration: none;
+            border-radius: 32px;
+            font-weight: bold;
+            transition: background 0.2s, color 0.2s;
+            box-shadow: none;
+        }
+
+        .cta-button:hover {
+            background: #4fc3f7;
+            color: #181a1b;
+        }
+
+        section {
+            padding: 80px 0 40px 0;
+            position: relative;
+            background: #181a1b;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 2.5rem;
+            color: #f3f3f3;
+            position: relative;
+        }
+
+        .about {
+            background: #23272a;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #e0e0e0;
+            padding: 2rem;
+            background: #23272a;
+            border-radius: 16px;
+            border: 1px solid #23272a;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+            transition: transform 0.3s ease;
+        }
+
+        .about-text:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.26);
+        }
+
+        .about-visual {
+            height: 320px;
+            background: #23272a;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #f3f3f3;
+            font-size: 1.2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+        }
+
+        .committee-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .member-card {
+            background: #23272a;
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            border: 1px solid #23272a;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+            color: #f3f3f3;
+            transition: box-shadow 0.2s, transform 0.2s;
+        }
+
+        .member-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.26);
+            border-color: #4fc3f7;
+        }
+
+        .member-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: #181a1b;
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #4fc3f7;
+            font-weight: bold;
+            font-size: 1.3rem;
+            box-shadow: none;
+        }
+
+        .events {
+            background: #23272a;
+        }
+
+        .carousel-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 16px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+        }
+
+        .carousel {
+            display: flex;
+            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .event-slide {
+            min-width: 100%;
+            background: #23272a;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid #23272a;
+            color: #f3f3f3;
+        }
+
+        .event-image {
+            height: 200px;
+            background: #181a1b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #4fc3f7;
+        }
+
+        .event-content {
+            padding: 2rem;
+        }
+
+        .event-title {
+            font-size: 1.3rem;
+            color: #f3f3f3;
+            margin-bottom: 1rem;
+            text-shadow: none;
+        }
+
+        .carousel-nav {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .carousel-btn {
+            background: #f3f3f3;
+            color: #181a1b;
+            border: none;
+            padding: 10px 22px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+            font-weight: bold;
+        }
+
+        .carousel-btn:hover {
+            background: #4fc3f7;
+            color: #181a1b;
+        }
+
+        .articles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .article-card {
+            background: #23272a;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid #23272a;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+            color: #f3f3f3;
+            transition: box-shadow 0.2s, transform 0.2s;
+        }
+
+        .article-card:hover {
+            transform: translateY(-6px) scale(1.02);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.26);
+            border-color: #4fc3f7;
+        }
+
+        .article-image {
+            height: 120px;
+            background: #181a1b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            font-weight: bold;
+            color: #4fc3f7;
+        }
+
+        .article-content {
+            padding: 1.5rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .article-title {
+            font-size: 1.1rem;
+            color: #f3f3f3;
+            margin-bottom: 0.5rem;
+        }
+
+        .article-author {
+            color: #4fc3f7;
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        footer {
+            background: #23272a;
+            color: #aaa;
+            text-align: center;
+            padding: 3rem 0;
+            border-top: 1px solid #23272a;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-section h3 {
+            color: #4fc3f7;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+
+            .committee-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .articles-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 1.3rem;
+            }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #23272a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #444;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #666;
+        }
+    </style>
+<!-- ...existing code... -->
+</head>
+
+<body>
+    <!-- Animated Background -->
+    <div class="bg-animation"></div>
+
+    <!-- Header -->
+    <header id="header">
+        <nav class="container">
+            <div class="logo">Marthoma Yuvajana Sakhyam</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#committee">Committee</a></li>
+                <li><a href="#events">Events</a></li>
+                <li><a href="#articles">Articles</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="floating-elements">
+            <div class="floating-element"></div>
+            <div class="floating-element"></div>
+            <div class="floating-element"></div>
+        </div>
+        <div class="container">
+            <div class="hero-content">
+                <h1>Marthoma Yuvajana Sakhyam</h1>
+                <p>Empowering Youth, Building Community, Serving Christ</p>
+                <a href="#about" class="cta-button">Discover Our Journey</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title animate-on-scroll">About Us</h2>
+            <div class="about-content">
+                <div class="about-text animate-on-scroll">
+                    <p>The Marthoma Yuvajana Sakhyam is a vibrant youth organization dedicated to fostering spiritual
+                        growth, community service, and fellowship among young people in the Marthoma Church. Our mission
+                        is to create an environment where youth can develop their faith, talents, and leadership skills
+                        while actively contributing to society.</p>
+
+                    <p>Through various programs, events, and initiatives, we strive to build strong Christian values,
+                        promote cultural heritage, and encourage active participation in church and community
+                        activities. We believe in empowering the next generation to become responsible citizens and
+                        faithful servants of Christ.</p>
+
+                    <p>Join us in our journey of faith, friendship, and service as we work together to make a positive
+                        impact in our community and beyond.</p>
+                </div>
+                <div class="about-visual animate-on-scroll">
+                    <div>
+                        <h3>Our Vision</h3>
+                        <p>Building tomorrow's Christian leaders through faith, fellowship, and service</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Committee Section -->
+    <section id="committee">
+        <div class="container">
+            <h2 class="section-title animate-on-scroll">Committee Members</h2>
+            <div class="committee-grid">
+                <div class="member-card animate-on-scroll">
+                    <div class="member-avatar">AJ</div>
+                    <h3>Alex John</h3>
+                    <p><strong>President</strong></p>
+                    <p>Leading our organization with vision and dedication to youth empowerment.</p>
+                </div>
+                <div class="member-card animate-on-scroll">
+                    <div class="member-avatar">SM</div>
+                    <h3>Sarah Matthew</h3>
+                    <p><strong>Vice President</strong></p>
+                    <p>Supporting leadership initiatives and community outreach programs.</p>
+                </div>
+                <div class="member-card animate-on-scroll">
+                    <div class="member-avatar">DJ</div>
+                    <h3>David Joseph</h3>
+                    <p><strong>Secretary</strong></p>
+                    <p>Managing organizational communications and documentation.</p>
+                </div>
+                <div class="member-card animate-on-scroll">
+                    <div class="member-avatar">RT</div>
+                    <h3>Rachel Thomas</h3>
+                    <p><strong>Treasurer</strong></p>
+                    <p>Overseeing financial management and resource allocation.</p>
+                </div>
+                <div class="member-card animate-on-scroll">
+                    <div class="member-avatar">MG</div>
+                    <h3>Mark George</h3>
+                    <p><strong>Program Coordinator</strong></p>
+                    <p>Organizing events and coordinating youth activities.</p>
+                </div>
+                <div class="member-card animate-on-scroll">
+                    <div class="member-avatar">LV</div>
+                    <h3>Liya Varghese</h3>
+                    <p><strong>Outreach Director</strong></p>
+                    <p>Leading community service and social impact initiatives.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Events Section -->
+    <section id="events" class="events">
+        <div class="container">
+            <h2 class="section-title animate-on-scroll">Our Events</h2>
+            <div class="carousel-container animate-on-scroll">
+                <div class="carousel" id="eventsCarousel">
+                    <div class="event-slide">
+                        <div class="event-image">Annual Youth Convention 2024</div>
+                        <div class="event-content">
+                            <h3 class="event-title">Cultural Heritage Festival</h3>
+                            <p>Celebrating our rich Marthoma heritage through traditional music, dance, and art
+                                performances. A platform for youth to showcase their talents while preserving our
+                                cultural identity.</p>
+                            <p><strong>Date:</strong> December 2024 | <strong>Audience:</strong> 800+ attendees</p>
+                        </div>
+                    </div>
+                    <div class="event-slide">
+                        <div class="event-image">Community Service Drive</div>
+                        <div class="event-content">
+                            <h3 class="event-title">Community Service Drive</h3>
+                            <p>Our monthly community service initiative where members volunteer at local orphanages,
+                                elderly care centers, and environmental cleanup projects. Making a difference one act of
+                                service at a time.</p>
+                            <p><strong>Frequency:</strong> Monthly | <strong>Impact:</strong> 50+ families helped</p>
+                        </div>
+                    </div>
+                    <div class="event-slide">
+                        <div class="event-image">Youth Leadership Workshop</div>
+                        <div class="event-content">
+                            <h3 class="event-title">Youth Leadership Workshop</h3>
+                            <p>Intensive leadership development program focusing on communication skills, team building,
+                                and Christian leadership principles. Preparing young leaders for future ministry and
+                                community roles.</p>
+                            <p><strong>Duration:</strong> 2 Days | <strong>Participants:</strong> 75 Youth Leaders</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-nav">
+                <button class="carousel-btn" onclick="prevSlide()">← Previous</button>
+                <button class="carousel-btn" onclick="nextSlide()">Next →</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Articles Section -->
+    <section id="articles">
+        <div class="container">
+            <h2 class="section-title animate-on-scroll">Member Articles</h2>
+            <div class="articles-grid">
+                <div class="article-card animate-on-scroll">
+                    <div class="article-image">Faith in Modern Times</div>
+                    <div class="article-content">
+                        <h3 class="article-title">Navigating Faith in the Digital Age</h3>
+                        <p class="article-author">By Thomas Abraham</p>
+                        <p>Exploring how young Christians can maintain their spiritual connection while embracing modern
+                            technology and social media platforms...</p>
+                    </div>
+                </div>
+                <div class="article-card animate-on-scroll">
+                    <div class="article-image">Community Impact</div>
+                    <div class="article-content">
+                        <h3 class="article-title">The Power of Youth in Community Service</h3>
+                        <p class="article-author">By Priya Samuel</p>
+                        <p>Reflecting on how organized youth service can create lasting positive change in our
+                            communities and build character in young volunteers...</p>
+                    </div>
+                </div>
+                <div class="article-card animate-on-scroll">
+                    <div class="article-image">Leadership Insights</div>
+                    <div class="article-content">
+                        <h3 class="article-title">Leadership Lessons from Biblical Examples</h3>
+                        <p class="article-author">By John Mathew</p>
+                        <p>Drawing inspiration from biblical leaders like David, Esther, and Timothy to develop
+                            effective leadership skills for today's challenges...</p>
+                    </div>
+                </div>
+                <div class="article-card animate-on-scroll">
+                    <div class="article-image">Cultural Heritage</div>
+                    <div class="article-content">
+                        <h3 class="article-title">Preserving Our Marthoma Legacy</h3>
+                        <p class="article-author">By Anna Philip</p>
+                        <p>Understanding the importance of maintaining our cultural and spiritual heritage while
+                            adapting to contemporary realities...</p>
+                    </div>
+                </div>
+                <div class="article-card animate-on-scroll">
+                    <div class="article-image">Youth Ministry</div>
+                    <div class="article-content">
+                        <h3 class="article-title">Building Inclusive Youth Communities</h3>
+                        <p class="article-author">By Daniel George</p>
+                        <p>Creating welcoming spaces where all young people can grow in faith, regardless of their
+                            background or circumstances...</p>
+                    </div>
+                </div>
+                <div class="article-card animate-on-scroll">
+                    <div class="article-image">Personal Growth</div>
+                    <div class="article-content">
+                        <h3 class="article-title">Finding Purpose in Service</h3>
+                        <p class="article-author">By Grace Joseph</p>
+                        <p>Personal testimony about discovering life's purpose through active participation in church
+                            and community service initiatives...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section animate-on-scroll">
+                    <h3>Contact Us</h3>
+                    <p>📧 info@marthomayvs.org</p>
+                    <p>📞 +91 98765 43210</p>
+                    <p>📍 Marthoma Church Complex<br>Thiruvalla, Kerala</p>
+                </div>
+                <div class="footer-section animate-on-scroll">
+                    <h3>Join Us</h3>
+                    <p>🙏 Sunday Service: 9:00 AM</p>
+                    <p>👥 Youth Meeting: Fridays 6:00 PM</p>
+                    <p>📖 Bible Study: Wednesdays 7:00 PM</p>
+                </div>
+                <div class="footer-section animate-on-scroll">
+                    <h3>Follow Our Journey</h3>
+                    <p>📘 Facebook: @MarthomaYVS</p>
+                    <p>📸 Instagram: @marthoma_yvs</p>
+                    <p>🎥 YouTube: Marthoma YVS</p>
+                </div>
+            </div>
+            <div class="animate-on-scroll">
+                <p>&copy; 2024 Marthoma Yuvajana Sakhyam. All rights reserved.</p>
+                <p style="margin-top: 1rem; opacity: 0.8;">✨ Built with love and faith ✨</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Carousel functionality
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.event-slide');
+        const totalSlides = slides.length;
+
+        function showSlide(index) {
+            const carousel = document.getElementById('eventsCarousel');
+            carousel.style.transform = `translateX(-${index * 100}%)`;
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            showSlide(currentSlide);
+        }
+
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            showSlide(currentSlide);
+        }
+
+        // Auto-advance carousel every 6 seconds
+        setInterval(nextSlide, 6000);
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all elements with animate-on-scroll class
+        document.querySelectorAll('.animate-on-scroll').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Add staggered animation delays for grid items
+        document.querySelectorAll('.committee-grid .member-card').forEach((card, index) => {
+            card.style.animationDelay = `${index * 0.1}s`;
+        });
+
+        document.querySelectorAll('.articles-grid .article-card').forEach((card, index) => {
+            card.style.animationDelay = `${index * 0.1}s`;
+        });
+
+        // Parallax effect for floating elements
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallax = document.querySelectorAll('.floating-element');
+            const speed = 0.5;
+
+            parallax.forEach((element, index) => {
+                const yPos = -(scrolled * speed * (index + 1) * 0.3);
+                element.style.transform = `translateY(${yPos}px) rotate(${scrolled * 0.1}deg)`;
+            });
+        });
+
+        // Add keyboard navigation for carousel
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') {
+                prevSlide();
+            } else if (e.key === 'ArrowRight') {
+                nextSlide();
+            }
+        });
+
+        // Enhanced hover effects for interactive elements
+        document.querySelectorAll('.member-card, .article-card').forEach(card => {
+            card.addEventListener('mouseenter', function () {
+                this.style.transform = 'translateY(-15px) scale(1.02)';
+            });
+
+            card.addEventListener('mouseleave', function () {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Dynamic gradient animation speed based on scroll
+        window.addEventListener('scroll', () => {
+            const scrollPercent = window.scrollY / (document.body.scrollHeight - window.innerHeight);
+            const bgAnimation = document.querySelector('.bg-animation');
+            bgAnimation.style.animationDuration = `${15 - (scrollPercent * 5)}s`;
+        });
+
+        // Preload animations
+        window.addEventListener('load', () => {
+            document.body.style.overflow = 'visible';
+
+            // Trigger hero animations
+            const heroElements = document.querySelectorAll('.hero-content h1, .hero-content p, .cta-button');
+            heroElements.forEach((el, index) => {
+                setTimeout(() => {
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateY(0)';
+                }, index * 200);
+            });
+        });
+
+        // Touch gestures for mobile carousel
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        const carousel = document.getElementById('eventsCarousel');
+
+        carousel.addEventListener('touchstart', e => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        carousel.addEventListener('touchend', e => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleGesture();
+        });
+
+        function handleGesture() {
+            if (touchEndX < touchStartX - 50) {
+                nextSlide();
+            }
+            if (touchEndX > touchStartX + 50) {
+                prevSlide();
+            }
+        }
+    </script>
+</body>
+
+</html>
