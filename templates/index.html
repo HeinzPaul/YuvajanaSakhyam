@@ -5,13 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Marthoma Yuvajana Sakhyam</title>
-  <!-- ...existing code... -->
+    <!-- ...existing code... -->
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-          }
+        }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -100,28 +100,56 @@
         }
 
         .hero {
-            height: 70vh;
+            height: 100vh;
             display: flex;
             align-items: center;
             text-align: center;
-            color: #f3f3f3;
-            background: #181a1b;
+            color: #a20000;
+            background-image: url('/static/kit.jpeg');
+            background-size: cover;
+            background-repeat: no-repeat;
             position: relative;
             overflow: hidden;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            backdrop-filter: blur(3px);
+            -webkit-backdrop-filter: blur(3px);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .hero>.container,
+        .hero .floating-elements {
+            position: relative;
+            z-index: 2;
         }
 
         .hero-content h1 {
             font-size: 3rem;
             margin-bottom: 1rem;
-            background: none;
+            background: rgba(24, 26, 27, 0.75);
+            /* semi-transparent dark background */
             color: #fff;
             -webkit-text-fill-color: unset;
+            padding: 0.5em 1em;
+            border-radius: 12px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.25);
+            display: inline-block;
+            position: relative;
+            z-index: 2;
         }
 
         .hero-content p {
             font-size: 1.3rem;
             margin-bottom: 2rem;
-            color: #b0b0b0;
+            color: #94109b;
             text-shadow: none;
         }
 
@@ -426,7 +454,7 @@
             background: #666;
         }
     </style>
-<!-- ...existing code... -->
+    <!-- ...existing code... -->
 </head>
 
 <body>
@@ -459,8 +487,8 @@
         </div>
         <div class="container">
             <div class="hero-content">
-                <h1>Marthoma Yuvajana Sakhyam</h1>
-                <p>Empowering Youth, Building Community, Serving Christ</p>
+                <h1 class ="member-card" >Christos Marthoma Yuvajana Sakhyam</h1>
+                <!-- <p>Empowering Youth, Building Community, Serving Christ</p> -->
                 <a href="#about" class="cta-button">Discover Our Journey</a>
             </div>
         </div>
