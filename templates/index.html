@@ -112,6 +112,26 @@
             overflow: hidden;
         }
 
+        .hero-bg-slideshow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 1;
+            transition: opacity 1s ease;
+        }
+
+        .hero-bg-slideshow-next.active {
+            transform: translateX(0);
+        }
+
         .hero::before {
             content: "";
             position: absolute;
@@ -123,6 +143,8 @@
             -webkit-backdrop-filter: blur(3px);
             z-index: 1;
             pointer-events: none;
+            background: rgba(24, 26, 27, 0.5);
+            /* subtle dark overlay */
         }
 
         .hero>.container,
@@ -166,7 +188,7 @@
         }
 
         .cta-button:hover {
-            background: #4fc3f7;
+            background: #7157c0;
             color: #181a1b;
         }
 
@@ -477,6 +499,7 @@
 
     <!-- Hero Section -->
     <section id="home" class="hero">
+        <div class="hero-bg-slideshow"></div>
         <div class="floating-elements">
             <div class="floating-element"></div>
             <div class="floating-element"></div>
@@ -484,7 +507,7 @@
         </div>
         <div class="container">
             <div class="hero-content">
-                <h1 class ="member-card" >Christos Marthoma Yuvajana Sakhyam</h1>
+                <h1 class="member-card">Christos Marthoma Yuvajana Sakhyam</h1>
                 <!-- <p>Empowering Youth, Building Community, Serving Christ</p> -->
                 <a href="#about" class="cta-button">Discover Our Journey</a>
             </div>
@@ -855,6 +878,33 @@
                 prevSlide();
             }
         }
+
+        const heroImages = [
+            '/static/kit.jpeg',
+            'static/3933578-3840x2160-desktop-hd-dodge-charger-srt-hellcat-wallpaper-image.jpg',
+            'static/ChatGPT Image Apr 16, 2025, 08_18_28 PM.png'
+            // Add more image paths as needed
+        ];
+        let heroIndex = 0;
+        const heroBg = document.querySelector('.hero-bg-slideshow');
+
+        function setHeroBg(index) {
+            heroBg.style.backgroundImage = `url('${heroImages[index]}')`;
+        }
+
+        // Initialize first image
+        setHeroBg(heroIndex);
+
+        setInterval(() => {
+            // Fade out
+            heroBg.style.opacity = 0;
+            setTimeout(() => {
+                // Change image and fade in
+                heroIndex = (heroIndex + 1) % heroImages.length;
+                setHeroBg(heroIndex);
+                heroBg.style.opacity = 1;
+            }, 1000); // match CSS transition duration
+        }, 5000);
     </script>
 </body>
 
