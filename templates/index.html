@@ -25,7 +25,9 @@
         <nav class="container">
             <!-- <div class="logo">Marthoma Yuvajana Sakhyam</div> -->
             <div class="logo">
-            <img src="/static/logo.png" alt="Marthoma Yuvajana Sakhyam Logo" style="height:60px;vertical-align:middle;">
+                <a href="#home">
+                    <img src="/static/logo.png" alt="Marthoma Yuvajana Sakhyam Logo" style="height:60px;vertical-align:middle;">
+                </a>
             </div>
             <ul class="nav-links">
                 <li><a href="#home">Home</a></li>
@@ -300,9 +302,30 @@
         setInterval(nextSlide, 6000);
 
         // Header scroll effect
+        let lastScrollY = window.scrollY;
+        let ticking = false;
+        const header = document.getElementById('header');
+
+        function handleNavbarVisibility() {
+            const currentScrollY = window.scrollY;
+            if (currentScrollY > lastScrollY && currentScrollY > 80) {
+                // Scrolling down
+                header.classList.add('navbar-hidden');
+            } else {
+                // Scrolling up
+                header.classList.remove('navbar-hidden');
+            }
+            lastScrollY = currentScrollY;
+            ticking = false;
+        }
+
         window.addEventListener('scroll', () => {
-            const header = document.getElementById('header');
-            if (window.scrollY > 80) { // Reduced scroll threshold for faster effect
+            if (!ticking) {
+                window.requestAnimationFrame(handleNavbarVisibility);
+                ticking = true;
+            }
+            // Existing scrolled effect
+            if (window.scrollY > 80) {
                 header.classList.add('scrolled');
             } else {
                 header.classList.remove('scrolled');
