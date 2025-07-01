@@ -1088,3 +1088,26 @@ footer {
         margin-top: 0.5rem;
     }
 }
+
+/* --- Our Vision Section - Animated Background --- */
+.vision-animated-bg {
+    background: linear-gradient(270deg, #a1c4fd, #c2e9fb, #fbc2eb, #f9d423, #a1c4fd);
+    background-size: 1000% 1000%;
+    animation: visionGradientMove 36s ease-in-out infinite;
+    position: relative;
+    overflow: hidden;
+}
+
+@keyframes visionGradientMove {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
