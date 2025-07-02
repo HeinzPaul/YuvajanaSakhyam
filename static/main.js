@@ -1,3 +1,41 @@
+// --- About Vision Animation on Scroll ---
+// --- About Vision Animation on Scroll (replayable) ---
+function animateAboutVisionOnScroll() {
+    const aboutSection = document.querySelector('#about');
+    const visionTitle = document.querySelector('.about-visual-vision-title');
+    const visionDesc = document.querySelector('.about-visual-vision-desc');
+    if (!aboutSection || !visionTitle || !visionDesc) return;
+
+    let timeoutId = null;
+
+    function checkAndAnimate() {
+        const rect = aboutSection.getBoundingClientRect();
+        const inView = rect.top < window.innerHeight * 0.7 && rect.bottom > window.innerHeight * 0.2;
+        if (inView) {
+            if (!visionTitle.classList.contains('visible') && !visionDesc.classList.contains('visible')) {
+                timeoutId = setTimeout(() => {
+                    visionTitle.classList.add('visible');
+                    visionDesc.classList.add('visible');
+                }, 200);
+            }
+        } else {
+            // Remove animation classes and clear timeout if leaving section
+            if (timeoutId) {
+                clearTimeout(timeoutId);
+                timeoutId = null;
+            }
+            visionTitle.classList.remove('visible');
+            visionDesc.classList.remove('visible');
+        }
+    }
+
+    window.addEventListener('scroll', checkAndAnimate);
+    window.addEventListener('resize', checkAndAnimate);
+    // In case already in view on load
+    checkAndAnimate();
+}
+
+document.addEventListener('DOMContentLoaded', animateAboutVisionOnScroll);
 // Carousel functionality
 let currentSlide = 0;
 const slides = document.querySelectorAll('.event-slide');
