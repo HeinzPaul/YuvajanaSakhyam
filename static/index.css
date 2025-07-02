@@ -190,12 +190,12 @@ nav {
     height: 2px;
     bottom: -5px;
     left: 0;
-    background-color: var(--accent-blue);
+    background-color: var(--text-light);
     transition: width 0.3s ease-out;
 }
 
 .nav-links a:hover {
-    color: var(--accent-blue);
+    color: var(--text-muted);
 }
 
 .nav-links a:hover::after,
@@ -478,7 +478,8 @@ section {
     /* Highlight key phrases */
 }
 
-.about-visual {
+
+ .about-visual {
     min-height: 350px;
     /* Slightly taller */
     background: linear-gradient(45deg, var(--accent-purple), var(--accent-blue));
@@ -487,8 +488,8 @@ section {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #fff;
-    /* White text on gradient */
+    color: #232323;
+    /* Darker grey (almost black, but not pure black) for Our Vision */
     font-size: 1.3rem;
     text-align: center;
     position: relative;
@@ -498,14 +499,15 @@ section {
 }
 
 .about-visual h3 {
-    color: #fff;
-    /* White text */
+    color: #232323;
+    /* Darker grey for Our Vision heading */
     font-size: 2rem;
     margin-bottom: 0.75rem;
 }
 
 .about-visual p {
-    color: rgba(255, 255, 255, 0.9);
+    color: #232323;
+    /* Darker grey for Our Vision paragraph */
     font-size: 1.1rem;
     line-height: 1.5;
 }
