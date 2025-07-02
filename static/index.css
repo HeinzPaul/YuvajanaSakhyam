@@ -406,7 +406,7 @@ body.mobile-nav-open .mobile-nav-overlay {
     border-radius: 16px;
     box-shadow: 0 8px 30px var(--shadow-strong);
     display: inline-block;
-    opacity: 0;
+    opacity: 10;
     /* Start hidden for JS animation */
     transform: translateY(20px);
     transition: opacity 0.8s ease-out, transform 0.8s ease-out;
@@ -416,7 +416,7 @@ body.mobile-nav-open .mobile-nav-overlay {
     font-size: 1.4rem;
     margin-bottom: 2.5rem;
     color: var(--text-light);
-    opacity: 0;
+    opacity: 10;
     /* Start hidden for JS animation */
     transform: translateY(20px);
     transition: opacity 0.8s ease-out 0.2s, transform 0.8s ease-out 0.2s;
