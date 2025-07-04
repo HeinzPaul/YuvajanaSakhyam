@@ -1129,9 +1129,10 @@ footer {
 
 /* --- Our Vision Section - Animated Background --- */
 .vision-animated-bg {
-    background: linear-gradient(270deg, #a1c4fd, #c2e9fb, #fbc2eb, #f9d423, #a1c4fd);
-    background-size: 1000% 1000%;
-    animation: visionGradientMove 36s ease-in-out infinite;
+    background: linear-gradient(270deg, #a1c4fd, #c2e9fb, #fbc2eb, #f9d423, #a1c4fd, #ffb347, #36d1c4, #a8ff78, #f953c6, #43cea2, #f7971e, #ffd200, #21d4fd, #fa709a, #fee140, #00c3ff, #a1c4fd);
+    background-size: 3000% 3000%;
+    animation: visionGradientMove 50s ease-in-out infinite;
+    /* Faster color transition with more colors */
     position: relative;
     overflow: hidden;
 }
@@ -1140,11 +1141,9 @@ footer {
     0% {
         background-position: 0% 50%;
     }
-
     50% {
         background-position: 100% 50%;
     }
-
     100% {
         background-position: 0% 50%;
     }
