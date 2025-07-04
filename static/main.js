@@ -222,3 +222,122 @@ function handleGesture() {
         prevSlide();
     }
 }
+
+// On page load, set avatar images if present in localStorage
+window.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('.member-card').forEach(function (card) {
+        const member = card.querySelector('.member-avatar').textContent.trim();
+        // Try to find an avatar image in static/avatars by convention
+        const possibleExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+        let found = false;
+        for (let ext of possibleExtensions) {
+            const url = `/static/avatars/${member}.${ext}`;
+            const img = new window.Image();
+            img.onload = function () {
+                if (!found) {
+                    const avatar = card.querySelector('.member-avatar');
+                    avatar.style.backgroundImage = `url('${url}')`;
+                    avatar.style.backgroundSize = 'cover';
+                    avatar.style.backgroundPosition = 'center';
+                    avatar.style.backgroundRepeat = 'no-repeat';
+                    avatar.textContent = '';
+                    found = true;
+                }
+            };
+            img.onerror = function () { };
+            img.src = url;
+        }
+    });
+});
+
+document.getElementById('showEditBtn').addEventListener('click', function () {
+    document.querySelectorAll('.member-card').forEach(function (card) {
+        if (!card.querySelector('.edit-pencil-btn')) {
+            const btn = document.createElement('button');
+            btn.className = 'edit-pencil-btn';
+            btn.title = 'Edit';
+            btn.innerHTML = '<svg width="20" height="20" fill="none" stroke="#0095ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 1 1 3 3L7 19.5 3 21l1.5-4L16.5 3.5z"/></svg>';
+            btn.style.background = 'transparent';
+            btn.style.border = 'none';
+            btn.style.cursor = 'pointer';
+            btn.style.position = 'absolute';
+            btn.style.top = '12px';
+            btn.style.right = '12px';
+            btn.style.padding = '4px';
+            btn.style.borderRadius = '50%';
+            btn.style.transition = 'background 0.2s';
+            btn.onmouseover = function () { btn.style.background = '#e3f2fd'; };
+            btn.onmouseout = function () { btn.style.background = 'transparent'; };
+            card.style.position = 'relative';
+            card.appendChild(btn);
+        }
+        // Add avatar hover overlay for image change
+        const avatar = card.querySelector('.member-avatar');
+        if (avatar && !avatar.classList.contains('edit-hover-enabled')) {
+            avatar.classList.add('edit-hover-enabled');
+            avatar.addEventListener('mouseenter', function () {
+                avatar.classList.add('edit-hover');
+            });
+            avatar.addEventListener('mouseleave', function () {
+                avatar.classList.remove('edit-hover');
+            });
+        }
+        // Enable file input only after login
+        card.classList.add('avatar-edit-enabled');
+    });
+});
+
+document.querySelectorAll('.member-card').forEach(function (card) {
+    // Add a hidden file input if not present
+    if (!card.querySelector('.avatar-upload-input')) {
+        const input = document.createElement('input');
+        input.type = 'file';
+        input.accept = 'image/*';
+        input.style.display = 'none';
+        input.className = 'avatar-upload-input';
+        card.appendChild(input);
+
+        // When file is selected, upload it
+        input.addEventListener('change', function (e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            const formData = new FormData();
+            formData.append('avatar', file);
+            formData.append('member', card.querySelector('.member-avatar').textContent.trim());
+
+            fetch('/upload-avatar', {
+                method: 'POST',
+                body: formData
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success && data.url) {
+                        const avatar = card.querySelector('.member-avatar');
+                        avatar.style.backgroundImage = `url('${data.url}')`;
+                        avatar.style.backgroundSize = 'cover';
+                        avatar.style.backgroundPosition = 'center';
+                        avatar.style.backgroundRepeat = 'no-repeat';
+                        avatar.textContent = '';
+                        // Store in localStorage for persistence
+                        localStorage.setItem('avatar_' + card.querySelector('.member-avatar').textContent.trim(), data.url);
+                    } else {
+                        alert('Upload failed');
+                    }
+                })
+                .catch(() => alert('Upload failed'));
+        });
+    }
+
+    // When overlay or pencil is clicked, trigger file input
+    card.addEventListener('click', function (e) {
+        // Only allow editing if enabled
+        if (!card.classList.contains('avatar-edit-enabled')) return;
+        if (
+            e.target.classList.contains('edit-pencil-btn') ||
+            e.target.classList.contains('member-avatar') ||
+            (e.target.closest('.member-avatar') && e.target.closest('.member-avatar').classList.contains('member-avatar'))
+        ) {
+            card.querySelector('.avatar-upload-input').click();
+        }
+    });
+});
