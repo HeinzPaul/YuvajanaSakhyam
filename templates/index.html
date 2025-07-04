@@ -40,8 +40,21 @@
                 <li><a href="#committee">Committee</a></li>
                 <li><a href="#events">Events</a></li>
                 <li><a href="#articles">Articles</a></li>
-                <li><a href="#login" id="showEditBtn" class="login-link">Login</a>
-                </li>
+                <li><a href="#login" id="showLoginBtn" class="login-link">Login</a></li>
+    <!-- Login Popup Modal -->
+    <div id="loginModal" class="login-modal" style="display:none;">
+        <div class="login-modal-content">
+            <span class="close-login-modal" id="closeLoginModal">&times;</span>
+            <h2>Login</h2>
+            <form id="loginForm">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required>
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+                <button type="submit">Login</button>
+            </form>
+        </div>
+    </div>
             </ul>
         </nav>
     </header>
@@ -287,7 +300,30 @@
 
     <script src="/static/main.js"></script>
     <script>
-
+    // Login Modal Logic
+    document.addEventListener('DOMContentLoaded', function() {
+        const loginBtn = document.getElementById('showLoginBtn');
+        const loginModal = document.getElementById('loginModal');
+        const closeLoginModal = document.getElementById('closeLoginModal');
+        loginBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            loginModal.style.display = 'block';
+        });
+        closeLoginModal.addEventListener('click', function() {
+            loginModal.style.display = 'none';
+        });
+        window.addEventListener('click', function(event) {
+            if (event.target === loginModal) {
+                loginModal.style.display = 'none';
+            }
+        });
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            // Add your login logic here
+            alert('Login submitted!');
+            loginModal.style.display = 'none';
+        });
+    });
     </script>
 </body>
 
