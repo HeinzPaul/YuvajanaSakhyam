@@ -1148,3 +1148,13 @@ footer {
         background-position: 0% 50%;
     }
 }
+
+.about-text.card-effect:hover,
+.member-card.card-effect:hover,
+.carousel-container.card-effect:hover,
+.article-card.card-effect:hover {
+    box-shadow: 0 0 32px 8px rgba(255,255,255,0.35), 0 4px 15px var(--shadow-medium);
+    border-color: rgba(118, 160, 169, 0.729);
+    background: rgba(255,255,255,0.10);
+    transition: box-shadow 0.5s, border-color 0.5s, background 0.5s;
+}
