@@ -1159,7 +1159,7 @@ footer {
     box-shadow: 0 0 32px 8px rgba(255, 255, 255, 0.35), 0 4px 15px var(--shadow-medium);
     border-color: rgba(118, 160, 169, 0.729);
     background: rgba(255, 255, 255, 0.10);
-    transition: box-shadow 0.5s, border-color 0.5s, background 0.5s;
+    transition: box-shadow 0.3s, border-color 0.3s, background 0.3s;
 }
 
 .member-avatar {
