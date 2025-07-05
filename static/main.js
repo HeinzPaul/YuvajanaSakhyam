@@ -140,10 +140,10 @@ document.querySelectorAll('.animate-on-scroll').forEach(el => {
 
 // Hero background slideshow
 const heroImages = [
-    '/static/image1.jpeg',
-    '/static/image2.jpeg',
-    '/static/image3.jpeg',
-    '/static/image4.jpeg'
+    '/static/slideShowImages/image1.jpeg',
+    '/static/slideShowImages/image2.jpeg',
+    '/static/slideShowImages/image3.jpeg',
+    '/static/slideShowImages/image4.jpeg'
 ];
 let heroImageIndex = 3;
 const heroBg = document.querySelector('.hero-bg-slideshow');
