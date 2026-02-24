@@ -146,7 +146,7 @@ const heroImages = [
     '/static/slideShowImages/image4.jpeg'
 ];
 let heroImageIndex = 3;
-const heroBg = document.querySelector('.hero-bg-slideshow');
+const heroBg = document.querySelector('.hero-slideshow-box .hero-bg-slideshow');
 
 function updateHeroBg() {
     heroBg.style.opacity = 0; // Fade out
